@@ -10,8 +10,13 @@ class Api::V1::CollectionsController < ApplicationController
     end
 
     def create 
-        collection = Collection.create(collection_params)
-        render json: collection
+        collection = Collection.new(collection_params)
+        collection.owned
+        if collection.save
+            render json: collection
+        else
+            render json: {error: 'Collection not saved'}
+        end
     end
 
     def update 
@@ -20,8 +25,8 @@ class Api::V1::CollectionsController < ApplicationController
         render json: collection
     end
 
-private
+    private
     def collection_params
-        params.permit(:name)
-      end
+        params.permit(:name, :art_id, :user_id, :artist_id)
+    end
 end

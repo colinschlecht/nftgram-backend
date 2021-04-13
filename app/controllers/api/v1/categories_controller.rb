@@ -21,7 +21,7 @@ class Api::V1::CategoriesController < ApplicationController
     
 private
     def category_params
-        params.permit(:name, :art_id, :user_id, :artist_id)
+        params.permit(:name)
       end
 
 end

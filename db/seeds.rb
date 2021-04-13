@@ -31,10 +31,6 @@
             # json = file.read
             # parsed = JSON.parse(json)
             # parsed.each do |variable|
-
-            owned = Collection.create(name: "Owned")
-            created = Collection.create(name: "Created")
-            for_sale = Collection.create(name: "For Sale")
             
             random = User.all.sample
             comments = ["Beautiful.", "Very nice.", "Cooooool.", "Wow this is art.", "Perfection."]    
@@ -42,7 +38,7 @@
             category = Category.find_or_create_by(name: categories.sample)
 
             # in theory this will create new art
-            100.times do Art.create(
+            100.times do newart = Art.create(
                 user_id: random[:id],
                 artist_id: random[:id],         
                 category_id: category[:id],
@@ -54,9 +50,8 @@
                 value: rand(1..100),
                 link: "www.nftgram.io"
             )
+            Comment.create(comment: comments.sample, user_id: User.all.sample[:id], art_id: newart[:id])
 
-            
-                Comment.create(comment: comment.sample, user_id: User.all.sample[:id], art_id: newart[:id])
             end
         end
         
