@@ -34,7 +34,7 @@ class Api::V1::ArtsController < ApplicationController
     # end
 
     private
-    def user_params
+    def art_params
         params.permit(
             :collection_id, 
             :user_id, 
