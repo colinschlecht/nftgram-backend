@@ -2,7 +2,6 @@ class Api::V1::ArtsController < ApplicationController
     skip_before_action :authorized
 
 
-    #all arts endpoint has a long load time
     def index
         arts = Art.all 
         render json: arts
@@ -35,5 +34,19 @@ class Api::V1::ArtsController < ApplicationController
     # end
 
     private
-    # will need to add strong params if going further with CRUD for arts
+    def user_params
+        params.permit(
+            :collection_id, 
+            :user_id, 
+            :artist_id, 
+            :category_id, 
+            :for_sale, 
+            :likes, 
+            :slug, 
+            :description, 
+            :caption, 
+            :value, 
+            :link
+        )
+      end
 end
