@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 2021_04_12_221903) do
     t.bigint "user_id", null: false
     t.bigint "artist_id", null: false
     t.bigint "art_id", null: false
-    t.string "type"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["art_id"], name: "index_collections_on_art_id"
