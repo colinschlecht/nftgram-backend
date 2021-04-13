@@ -52,7 +52,6 @@ ActiveRecord::Schema.define(version: 2021_04_12_221903) do
   end
 
   create_table "arts", force: :cascade do |t|
-    t.bigint "collection_id", null: false
     t.bigint "user_id", null: false
     t.bigint "artist_id", null: false
     t.bigint "category_id", null: false
@@ -67,7 +66,6 @@ ActiveRecord::Schema.define(version: 2021_04_12_221903) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["artist_id"], name: "index_arts_on_artist_id"
     t.index ["category_id"], name: "index_arts_on_category_id"
-    t.index ["collection_id"], name: "index_arts_on_collection_id"
     t.index ["user_id"], name: "index_arts_on_user_id"
   end
 
@@ -79,10 +77,13 @@ ActiveRecord::Schema.define(version: 2021_04_12_221903) do
 
   create_table "collections", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.bigint "artist_id", null: false
+    t.bigint "art_id", null: false
     t.string "type"
-    t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["art_id"], name: "index_collections_on_art_id"
+    t.index ["artist_id"], name: "index_collections_on_artist_id"
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
@@ -118,8 +119,9 @@ ActiveRecord::Schema.define(version: 2021_04_12_221903) do
   add_foreign_key "artists", "users"
   add_foreign_key "arts", "artists"
   add_foreign_key "arts", "categories"
-  add_foreign_key "arts", "collections"
   add_foreign_key "arts", "users"
+  add_foreign_key "collections", "artists"
+  add_foreign_key "collections", "arts"
   add_foreign_key "collections", "users"
   add_foreign_key "comments", "arts"
   add_foreign_key "comments", "users"
