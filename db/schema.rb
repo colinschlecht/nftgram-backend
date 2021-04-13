@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_12_221903) do
+ActiveRecord::Schema.define(version: 2021_04_13_073340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,15 @@ ActiveRecord::Schema.define(version: 2021_04_12_221903) do
     t.index ["art_id"], name: "index_events_on_art_id"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "art_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["art_id"], name: "index_likes_on_art_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
@@ -126,4 +135,6 @@ ActiveRecord::Schema.define(version: 2021_04_12_221903) do
   add_foreign_key "comments", "arts"
   add_foreign_key "comments", "users"
   add_foreign_key "events", "arts"
+  add_foreign_key "likes", "arts"
+  add_foreign_key "likes", "users"
 end
