@@ -1,5 +1,23 @@
 # README
 
+
+mvp-
+1. full crud on art + user
+2. all user views and showpages
+-- user is able to view all art
+3. all art views and showpages
+
+
+stretch-
+
+1. create nft
+2. nft marketplace
+3. active storage setup?
+
+
+
+
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
