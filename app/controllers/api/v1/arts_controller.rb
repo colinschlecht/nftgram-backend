@@ -1,9 +1,17 @@
 class Api::V1::ArtsController < ApplicationController
   skip_before_action :authorized
 
+  def explore
+    items = params[:page].to_i * 21
+    arts = Art.order("created_at DESC").limit(21).offset(items)
+    json_string = ArtSerializer.new(arts).serializable_hash.to_json
+    render json: json_string
+  end
+
   def index
     arts = Art.all
-    render json: arts
+    json_string = ArtSerializer.new(arts).serializable_hash.to_json
+    render json: json_string
   end
 
   def show
