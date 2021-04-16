@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :users
       post '/login', to: 'auth#login'
       get '/getuser', to: 'users#getuser'
+      get '/explore/:page', to: 'arts#explore'
     end
   end
 end

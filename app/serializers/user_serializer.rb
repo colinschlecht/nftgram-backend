@@ -5,5 +5,8 @@ class UserSerializer
   has_many :artists
   has_many :arts
   has_many :comments, through: :arts
-  attributes :username
+
+  attributes :id, :username
+
+  set_key_transform :camel_lower
 end
