@@ -5,5 +5,6 @@ class Art < ApplicationRecord
   has_many :events
   has_many :comments
   has_many :collections
+  has_many :likes
   
 end
