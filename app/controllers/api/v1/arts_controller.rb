@@ -4,8 +4,7 @@ class Api::V1::ArtsController < ApplicationController
   def explore
     items = params[:page].to_i * 21
     arts = Art.order("created_at DESC").limit(21).offset(items)
-    json_string = ArtSerializer.new(arts).serializable_hash.to_json
-    render json: json_string
+    render json: arts
   end
 
   def index
