@@ -89,11 +89,12 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
 
   create_table "comments", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "art_id", null: false
+    t.string "commentable_type"
+    t.bigint "commentable_id"
     t.string "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["art_id"], name: "index_comments_on_art_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -107,10 +108,11 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
 
   create_table "likes", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "art_id", null: false
+    t.string "likeable_type"
+    t.bigint "likeable_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["art_id"], name: "index_likes_on_art_id"
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
@@ -118,6 +120,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
     t.string "username"
     t.string "password_digest"
     t.string "bio"
+    t.string "avatar"
     t.string "link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -132,9 +135,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
   add_foreign_key "collections", "artists"
   add_foreign_key "collections", "arts"
   add_foreign_key "collections", "users"
-  add_foreign_key "comments", "arts"
   add_foreign_key "comments", "users"
   add_foreign_key "events", "arts"
-  add_foreign_key "likes", "arts"
   add_foreign_key "likes", "users"
 end

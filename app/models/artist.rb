@@ -3,4 +3,7 @@ class Artist < ApplicationRecord
   has_many :arts
   has_many :collections
   has_many :categories, through: :arts
+  include Likeable  
+
+  
 end

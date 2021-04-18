@@ -1,3 +1,8 @@
+require "rest-client"
+require "json"
+require "pry"
+require "faker"
+
 #! Seeding Instructions:
 #? Before seeding the database:
 # Run bundle install in the terminal to ensure all gem dependencies are met.
@@ -9,12 +14,8 @@
 # rails db:migrate
 # rails db:seed
 # Else if existing database:
-# rails db:reset #!this will drop, create, run migrations and seed#!
+# rails db:reset  >>(#?this will drop, create, run migrations and seed)
 
-require "rest-client"
-require "json"
-require "pry"
-require "faker"
 
 def seed_users
   10.times do
@@ -25,31 +26,40 @@ def seed_users
   end
 end
 
+#### if seeding from a json file
+#   # file = open('./db/seeddatafile.json')
+#   # json = file.read
+#   # parsed = JSON.parse(json)
+#   # parsed.each do |variable|
+#   # yourcodehere
+#   # end
+
 def seed_art
-  # file = open('./db/art.json')
-  # json = file.read
-  # parsed = JSON.parse(json)
-  # parsed.each do |variable|
-
-  random = User.all.sample
-  comments = ["Beautiful.", "Very nice.", "Cooooool.", "Wow this is art.", "Perfection."]
-  categories = ["Cool Things", "The color red", "Heavy stuff", "Ocean"]
-  category = Category.find_or_create_by(name: categories.sample)
-
-  # in theory this will create new art
-  100.times do newart = Art.create(
+  ### generates seed art
+  100.times do 
+    categories = ["Cool Things", "The color red", "Heavy stuff", "Ocean"]
+    category = Category.find_or_create_by(name: categories.sample)
+    random = User.all.sample
+    newart = Art.create(
     user_id: random[:id],
     artist_id: random[:id],
     category_id: category[:id],
     for_sale: false,
-    likes: 0,
     slug: "a-work-of-art",
     description: "a work of art",
-    caption: "Moisture is the essence of wetness",
+    caption: category[:name],
     value: rand(1..100),
-    link: "www.nftgram.io",
+    link: "www.nftgram.io"
   )
-    Comment.create(comment: comments.sample, user_id: User.all.sample[:id], art_id: newart[:id])   end
+    user_length = User.all.length
+    art_length = Art.all.length
+    random_number_art = rand(1..art_length)
+    random_number_user = rand(1..user_length)
+    comments = ["Beautiful.", "Very nice.", "Cooooool.", "Wow this is art.", "Perfection."]
+    ### generates art likes
+    Like.create(user_id: random_number_user, likeable_type: "Art", likeable_id: random_number_art)
+    ### generates art comments
+    Comment.create(comment: comments.sample, user_id: User.all.sample[:id], commentable_id: newart[:id], commentable_type: 'Art')   end
 end
 
 seed_users

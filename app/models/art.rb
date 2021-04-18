@@ -3,8 +3,7 @@ class Art < ApplicationRecord
   belongs_to :artist
   belongs_to :category
   has_many :events
-  has_many :comments
   has_many :collections
-  has_many :likes
-  
+  include Likeable
+  include Commentable
 end
