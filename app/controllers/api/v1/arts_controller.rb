@@ -9,8 +9,7 @@ class Api::V1::ArtsController < ApplicationController
 
   def index
     arts = Art.all
-    json_string = ArtSerializer.new(arts).serializable_hash.to_json
-    render json: json_string
+    render json: arts
   end
 
   def show
