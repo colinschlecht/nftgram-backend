@@ -1,5 +1,6 @@
 class Comment < ApplicationRecord
-  has_many :likes
+  belongs_to :commentable, polymorphic: true
   belongs_to :user
-  belongs_to :art
+  include Likeable
+  include Commentable
 end
