@@ -5,5 +5,5 @@ class CommentSerializer < ActiveModel::Serializer
   # end
   belongs_to :user
   has_many :likes
-  attributes :id, :user_id, :commentable_id, :commentable_type, :comment, :created_at, :user
+  attributes :id, :user_id, :commentable_id, :commentable_type, :comment, :created_at, :user, :likes, :comments
 end
