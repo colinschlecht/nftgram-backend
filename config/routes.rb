@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :events
       resources :collections
       resources :users
+      resources :likes
       post '/login', to: 'auth#login'
       get '/getuser', to: 'users#getuser'
       get '/explore/:page', to: 'arts#explore'
