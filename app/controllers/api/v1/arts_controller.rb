@@ -18,41 +18,35 @@ class Api::V1::ArtsController < ApplicationController
   end
 
   def create
-    art = Art.create(art_params)
-    render json: art
+    categ = Category.find_or_create_by(name: art_params[:category].downcase)
+    new_params = art_params.except("category")
+    byebug
+    art = Art.new(new_params)
+    art.category_id = categ.id
+    byebug
+    if art.save
+      art.artwork.attach(art_params[:artwork])
+      render json: art
+    else
+      render json: { error: "failed to create art" }, status: 400
+    end
   end
-
-  # custom route from brewproj
-  # def getstates
-  #     states = Art.all.map{|art| art.state }.uniq.compact.sort
-  #     render json: states
-  # end
-  # custom route from brewproj
-  # def state
-  #     arts = Art.all.where(state: params[:state])
-  #     render json: arts
-  # end
-  # custom route from brewproj
-  # def washington
-  #     arts = Art.all.where(state: "Washington")
-  #     render json: arts
-  # end
 
   private
 
   def art_params
-    params.permit(
-      :collection_id,
+    params.require(:art).permit(
       :user_id,
       :artist_id,
-      :category_id,
+      :category,
       :for_sale,
-      :likes,
-      :slug,
-      :description,
+      :artwork,
+      # :likes,
+      # :slug,
+      # :description,
       :caption,
-      :value,
-      :link
+      # :value,
+      # :link
     )
   end
 end

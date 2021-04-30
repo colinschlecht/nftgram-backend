@@ -5,5 +5,6 @@ class Artist < ApplicationRecord
   has_many :categories, through: :arts
   include Likeable  
 
-  
+  accepts_nested_attributes_for :user
+
 end

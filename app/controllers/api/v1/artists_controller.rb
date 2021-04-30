@@ -1,5 +1,6 @@
 class Api::V1::ArtistsController < ApplicationController
-  # json_string = ArtistSerializer.new(artist).serializable_hash.to_json
+  skip_before_action :authorized
+
 
   def show
     artist = Artist.find(params[:id])
