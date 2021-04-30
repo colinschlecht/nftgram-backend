@@ -62,5 +62,5 @@ def seed_art
     Comment.create(comment: comments.sample, user_id: User.all.sample[:id], commentable_id: newart[:id], commentable_type: 'Art')   end
 end
 
-seed_users
-seed_art
+# seed_users
+# seed_art

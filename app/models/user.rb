@@ -1,6 +1,6 @@
 class User < ApplicationRecord
     has_many :collections
-    has_many :artists
+    has_one :artist
     has_many :arts
     has_many :comments, through: :arts
     has_many :likes, through: :arts
@@ -8,5 +8,6 @@ class User < ApplicationRecord
     validates :username, presence: true
     validates :username, uniqueness: true
 
+    accepts_nested_attributes_for :artist
 
 end

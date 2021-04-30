@@ -1,4 +1,6 @@
 class Api::V1::CollectionsController < ApplicationController
+  skip_before_action :authorized
+
   def index
     collections = Collection.all
     render json: collections

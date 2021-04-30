@@ -7,5 +7,8 @@ class Art < ApplicationRecord
   has_many :users, through: :likes
   include Likeable
   include Commentable
+
+  has_one_attached :artwork
+  accepts_nested_attributes_for :user, :artist, :category
   # accepts_nested_attributes_for :likes
 end

@@ -3,4 +3,5 @@ class ArtistSerializer < ActiveModel::Serializer
   belongs_to :user
   has_many :arts
   has_many :collections
+  attributes :name
 end
