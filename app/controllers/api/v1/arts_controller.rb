@@ -19,13 +19,15 @@ class Api::V1::ArtsController < ApplicationController
 
   def create
     categ = Category.find_or_create_by(name: art_params[:category].downcase)
-    new_params = art_params.except("category")
-    byebug
+    new_params = art_params.except("category", "artwork")
+    # byebug
     art = Art.new(new_params)
     art.category_id = categ.id
     byebug
     if art.save
+      byebug
       art.artwork.attach(art_params[:artwork])
+      byebug
       render json: art
     else
       render json: { error: "failed to create art" }, status: 400
@@ -46,7 +48,7 @@ class Api::V1::ArtsController < ApplicationController
       # :description,
       :caption,
       # :value,
-      # :link
+      :link
     )
   end
 end
