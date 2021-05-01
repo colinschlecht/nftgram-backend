@@ -11,6 +11,8 @@ class CreateArts < ActiveRecord::Migration[6.1]
       t.string :caption
       t.float :value
       t.string :link
+      t.string :cid
+      t.string :name
 
       t.timestamps
     end

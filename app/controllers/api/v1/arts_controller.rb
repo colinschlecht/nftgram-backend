@@ -39,13 +39,14 @@ class Api::V1::ArtsController < ApplicationController
       :artist_id,
       :category,
       :for_sale,
-      # :artwork,
-      # :likes,
-      # :slug,
-      # :description,
+      :likes,
+      :slug,
+      :description,
       :caption,
-      # :value,
-      :link
+      :value,
+      :link,
+      :cid, 
+      :name
     )
   end
 end
