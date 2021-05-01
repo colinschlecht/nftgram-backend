@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
     t.string "caption"
     t.float "value"
     t.string "link"
+    t.string "cid"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["artist_id"], name: "index_arts_on_artist_id"
