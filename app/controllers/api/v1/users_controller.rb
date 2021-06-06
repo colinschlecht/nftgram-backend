@@ -9,7 +9,6 @@ class Api::V1::UsersController < ApplicationController
     name = pre + verb.capitalize + animal.capitalize + rand(1..100).to_s
     newname = name.split(/[ ,.\/]/).join("").to_s
     render json: { name: newname }
-    return newname
   end
 
   def generate_
