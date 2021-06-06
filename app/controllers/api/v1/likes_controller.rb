@@ -1,5 +1,5 @@
 class Api::V1::LikesController < ApplicationController
-  skip_before_action :authorized
+  # skip_before_action :authorized
 
     def create
         like = Like.create(like_params)
