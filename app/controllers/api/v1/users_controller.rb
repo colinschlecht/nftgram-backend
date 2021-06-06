@@ -4,24 +4,30 @@ class Api::V1::UsersController < ApplicationController
 
   def generate
     pre = Faker::Name.prefix 
-    verb = Faker::Verb.past_participle
+    verb = Faker::Verb.past
     animal = Faker::Creature::Animal.name
-    name = pre + verb.capitalize + animal.capitalize
-    name.split(/[ ,.]/).join("").to_s
+    name = pre + verb.capitalize + animal.capitalize + rand(1..100).to_s
+    newname = name.split(/[ ,.\/]/).join("").to_s
+    render json: { name: newname }
+    return newname
+  end
+
+  def generate_
+    pre = Faker::Name.prefix 
+    verb = Faker::Verb.past
+    animal = Faker::Creature::Animal.name
+    name = pre + verb.capitalize + animal.capitalize + rand(1..100).to_s
+    newname = name.split(/[ ,.\/]/).join("").to_s
   end
 
   def create
     @user = User.find_or_initialize_by(user_params)
     if !@user.username
-      @user.username = generate
+      @user.username = generate_
     end
-    byebug
     if @user.save
-      byebug
       v1 = Artist.create(name: @user.username.to_s, user_id: @user.id)
-      byebug
       render json: { user: UserSerializer.new(@user) }, status: :created
-      byebug
     else
       render json: { error: "failed to create user" }, status: :not_acceptable
     end
