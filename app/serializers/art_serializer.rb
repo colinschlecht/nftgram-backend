@@ -4,7 +4,7 @@ class ArtSerializer < ActiveModel::Serializer
   belongs_to :user
   belongs_to :artist
   belongs_to :category
-  attributes :id, :user_id, :artist_id, :category_id, :likes, :comments, :for_sale, :slug, :description, :caption, :value, :link, :category, :cid, :name
+  attributes :id, :user_id, :artist_id, :category_id, :likes, :comments, :for_sale, :slug, :description, :caption, :value, :link, :category, :cid, :name, :created_at
 end
 
 

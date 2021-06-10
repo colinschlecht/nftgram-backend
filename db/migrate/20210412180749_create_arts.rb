@@ -6,13 +6,13 @@ class CreateArts < ActiveRecord::Migration[6.1]
       t.references :category, null: false, foreign_key: true
       t.boolean :for_sale
       t.integer :likes
-      t.string :slug
       t.string :description
       t.string :caption
-      t.float :value
-      t.string :link
       t.string :cid
       t.string :name
+      t.string :tokenURI
+      t.string :contract_address
+      t.integer :tokenID
 
       t.timestamps
     end
