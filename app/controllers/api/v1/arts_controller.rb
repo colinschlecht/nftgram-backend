@@ -40,12 +40,13 @@ class Api::V1::ArtsController < ApplicationController
       :category,
       :for_sale,
       :likes,
-      :slug,
       :description,
       :caption,
-      :value,
       :link,
       :cid, 
+      :tokenID,
+      :tokenURI,
+      :contract_address,
       :name
     )
   end

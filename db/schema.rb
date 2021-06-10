@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
     t.string "tokenURI"
     t.string "contract_address"
     t.integer "tokenID"
+    t.string "link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["artist_id"], name: "index_arts_on_artist_id"

@@ -13,6 +13,7 @@ class CreateArts < ActiveRecord::Migration[6.1]
       t.string :tokenURI
       t.string :contract_address
       t.integer :tokenID
+      t.string :link
 
       t.timestamps
     end
