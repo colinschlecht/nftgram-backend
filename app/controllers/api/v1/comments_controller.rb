@@ -18,13 +18,13 @@ class Api::V1::CommentsController < ApplicationController
 
   def update
     comment = Comment.find(params[:id])
-    Comment.update(comment: params[:comment])
+    comment.update(comment: params[:comment])
     render json: comment
   end
 
   def destroy
     comment = Comment.find(params[:id])
-    Comment.destroy
+    comment.destroy
     render json: { 'message': "Delete Successful" }
   end
 
