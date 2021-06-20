@@ -12,8 +12,12 @@ class Api::V1::CommentsController < ApplicationController
   end
 
   def create
-    comment = Comment.create(comment_params)
-    render json: comment
+    comment = Comment.new(comment_params)
+    if comment.save
+      render json: comment
+    else
+      render json: { 'message': "Comment Failed" }
+    end
   end
 
   def update
