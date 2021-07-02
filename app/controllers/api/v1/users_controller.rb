@@ -2,6 +2,11 @@ require "faker"
 class Api::V1::UsersController < ApplicationController
   # skip_before_action :authorized, only: [:create]
 
+  def index
+    users = User.all
+    render json: users
+  end
+
   def generate
     pre = Faker::Name.prefix 
     verb = Faker::Verb.past
@@ -37,8 +42,8 @@ class Api::V1::UsersController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    User.update(user_params)
-    render json: comment
+    user.update(user_params)
+    render json: user
   end
 
   def show
@@ -49,7 +54,7 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:username, :metamask_account, :bio, :avatar)
+    params.require(:user).permit(:username, :metamask_account, :bio, :avatar)
   end
 end
 
