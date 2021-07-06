@@ -9,6 +9,11 @@ class Api::V1::ArtistsController < ApplicationController
     artist = Artist.create(artist_params)
   end
   
+  def update
+    artist = Artist.find(params[:id])
+    artist.update(artist_params)
+  end
+
   private
   
   def artist_params

@@ -1,4 +1,5 @@
 require "faker"
+
 class Api::V1::UsersController < ApplicationController
   # skip_before_action :authorized, only: [:create]
 
@@ -8,7 +9,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def generate
-    pre = Faker::Name.prefix 
+    pre = Faker::Name.prefix
     verb = Faker::Verb.past
     animal = Faker::Creature::Animal.name
     name = pre + verb.capitalize + animal.capitalize + rand(1..100).to_s
@@ -17,7 +18,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def generate_
-    pre = Faker::Name.prefix 
+    pre = Faker::Name.prefix
     verb = Faker::Verb.past
     animal = Faker::Creature::Animal.name
     name = pre + verb.capitalize + animal.capitalize + rand(1..100).to_s
@@ -41,14 +42,19 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
-    user.update(user_params)
-    render json: user
+    @user = User.find(params[:id])
+    @user.update(user_params)
+    if @user.save
+      Artist.update(name: @user.username.to_s, user_id: @user.id)
+      render json: @user
+    else
+      render json: { error: "failed to create user" }, status: :not_acceptable
+    end
   end
 
   def show
-    user = User.find(params[:id])
-    render json: user
+    @user = User.find(params[:id])
+    render json: @user
   end
 
   private
