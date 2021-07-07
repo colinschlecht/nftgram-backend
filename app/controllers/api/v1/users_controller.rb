@@ -34,7 +34,7 @@ class Api::V1::UsersController < ApplicationController
       @user.avatar = "bafkreicprdfalt566bpr37jj6fo2omfir4alvqgmnk6p6m2qeyu4ipjspq"
     end
     if @user.save
-      v1 = Artist.create(name: @user.username.to_s, user_id: @user.id)
+      v1 = Artist.find_or_create_by(name: @user.username.to_s, user_id: @user.id)
       render json: { user: UserSerializer.new(@user) }, status: :created
     else
       render json: { error: "failed to create user" }, status: :not_acceptable
