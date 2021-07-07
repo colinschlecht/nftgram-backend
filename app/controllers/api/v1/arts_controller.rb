@@ -31,6 +31,16 @@ class Api::V1::ArtsController < ApplicationController
     end
   end
 
+  def update
+    art = Art.find(params[:id])
+    art.update(art_params)
+    if art.save
+      render json: art
+    else
+      render json: { error: "failed to place on sale" }, status: :not_acceptable
+    end
+  end
+
   private
 
   def art_params
