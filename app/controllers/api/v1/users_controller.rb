@@ -34,7 +34,9 @@ class Api::V1::UsersController < ApplicationController
       @user.avatar = "bafkreicprdfalt566bpr37jj6fo2omfir4alvqgmnk6p6m2qeyu4ipjspq"
     end
     if @user.save
-      v1 = Artist.find_or_create_by(name: @user.username.to_s, user_id: @user.id)
+      if !@user.artist
+        @user.artist = @user
+      end
       render json: { user: UserSerializer.new(@user) }, status: :created
     else
       render json: { error: "failed to create user" }, status: :not_acceptable
@@ -45,7 +47,6 @@ class Api::V1::UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.update(user_params)
     if @user.save
-      Artist.update(name: @user.username.to_s, user_id: @user.id)
       render json: @user
     else
       render json: { error: "failed to create user" }, status: :not_acceptable
@@ -63,19 +64,3 @@ class Api::V1::UsersController < ApplicationController
     params.require(:user).permit(:username, :metamask_account, :bio, :avatar)
   end
 end
-
-#no longer using
-# def getuser
-#   render json: { user: UserSerializer.new(current_user) }, status: :accepted
-# end
-# no longer using
-# def create
-#   @user = User.create(user_params)
-#   if @user.valid?
-#     @token = issue_token({ user_id: @user.id })
-#     v1 = Artist.create(name: @user.username.to_s, user_id: @user.id)
-#     render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
-#   else
-#     render json: { error: "failed to create user" }, status: :not_acceptable
-#   end
-# end
