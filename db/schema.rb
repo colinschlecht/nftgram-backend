@@ -40,16 +40,6 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "collections", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "art_id", null: false
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["art_id"], name: "index_collections_on_art_id"
-    t.index ["user_id"], name: "index_collections_on_user_id"
-  end
-
   create_table "comments", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "commentable_type"
@@ -59,14 +49,6 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
-  create_table "events", force: :cascade do |t|
-    t.bigint "art_id", null: false
-    t.string "event"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["art_id"], name: "index_events_on_art_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -92,10 +74,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
 
   add_foreign_key "arts", "categories"
   add_foreign_key "arts", "users"
-  add_foreign_key "collections", "arts"
-  add_foreign_key "collections", "users"
   add_foreign_key "comments", "users"
-  add_foreign_key "events", "arts"
   add_foreign_key "likes", "users"
   add_foreign_key "users", "users", column: "artist_id"
 end
