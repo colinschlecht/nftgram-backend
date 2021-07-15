@@ -24,7 +24,6 @@ class Api::V1::ArtsController < ApplicationController
     art = Art.new(new_params)
     art.category_id = categ.id
     if art.save
-      # art.artwork.attach(art_params[:artwork])
       render json: art
     else
       render json: { error: "failed to create art" }, status: 400

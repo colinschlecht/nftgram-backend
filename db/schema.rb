@@ -15,17 +15,8 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "artists", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_artists_on_user_id"
-  end
-
   create_table "arts", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "artist_id", null: false
     t.bigint "category_id", null: false
     t.boolean "for_sale"
     t.integer "likes"
@@ -39,7 +30,6 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
     t.string "link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["artist_id"], name: "index_arts_on_artist_id"
     t.index ["category_id"], name: "index_arts_on_category_id"
     t.index ["user_id"], name: "index_arts_on_user_id"
   end
@@ -52,13 +42,11 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
 
   create_table "collections", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "artist_id", null: false
     t.bigint "art_id", null: false
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["art_id"], name: "index_collections_on_art_id"
-    t.index ["artist_id"], name: "index_collections_on_artist_id"
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
@@ -92,22 +80,22 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.bigint "artist_id"
     t.string "metamask_account"
     t.string "username"
     t.string "bio"
     t.string "avatar"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["artist_id"], name: "index_users_on_artist_id"
   end
 
-  add_foreign_key "artists", "users"
-  add_foreign_key "arts", "artists"
   add_foreign_key "arts", "categories"
   add_foreign_key "arts", "users"
-  add_foreign_key "collections", "artists"
   add_foreign_key "collections", "arts"
   add_foreign_key "collections", "users"
   add_foreign_key "comments", "users"
   add_foreign_key "events", "arts"
   add_foreign_key "likes", "users"
+  add_foreign_key "users", "users", column: "artist_id"
 end
