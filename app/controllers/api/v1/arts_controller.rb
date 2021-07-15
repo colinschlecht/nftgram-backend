@@ -1,5 +1,4 @@
 class Api::V1::ArtsController < ApplicationController
-  # skip_before_action :authorized
 
   def explore
     items = params[:page].to_i * 21
