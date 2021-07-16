@@ -21,7 +21,7 @@ class Api::V1::ArtsController < ApplicationController
     new_params = art_params.except("category", "artwork")
     
     art = Art.new(new_params)
-    art.category_id = categ.id
+    art.category = categ
     if art.save
       render json: art
     else
