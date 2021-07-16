@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
 
   create_table "arts", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.bigint "artist_id"
     t.bigint "category_id", null: false
     t.boolean "for_sale"
     t.integer "likes"
@@ -30,6 +31,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
     t.string "link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["artist_id"], name: "index_arts_on_artist_id"
     t.index ["category_id"], name: "index_arts_on_category_id"
     t.index ["user_id"], name: "index_arts_on_user_id"
   end
@@ -74,6 +76,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_073340) do
 
   add_foreign_key "arts", "categories"
   add_foreign_key "arts", "users"
+  add_foreign_key "arts", "users", column: "artist_id"
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "users"
   add_foreign_key "users", "users", column: "artist_id"

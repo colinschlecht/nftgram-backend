@@ -1,5 +1,6 @@
 class Art < ApplicationRecord
   belongs_to :user
+  belongs_to :artist, class_name: 'User', foreign_key: 'artist_id'
   belongs_to :category
   has_many :users, through: :likes
   include Likeable

@@ -2,6 +2,7 @@ class CreateArts < ActiveRecord::Migration[6.1]
   def change
     create_table :arts do |t|
       t.references :user, null: false, foreign_key: true
+      t.references :artist, foreign_key: { to_table: :users }
       t.references :category, null: false, foreign_key: true
       t.boolean :for_sale
       t.integer :likes
