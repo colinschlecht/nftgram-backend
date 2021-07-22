@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "https://nftgram.io", "https://www.nftgram.io"
+    origins "https://nftgram.io", "https://www.nftgram.io", "localhost:3001"
     # origins "*"
 
     resource "*",
